@@ -80,7 +80,7 @@ int print_mod(va_list args)
 
 /**
  * print_string - print string
- * @args: arg list
+ * @arg: arg list
  * Return: count string
  */
 int print_string(va_list arg)
