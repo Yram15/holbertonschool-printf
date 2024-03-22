@@ -1,67 +1,47 @@
 #include "main.h"
-
 /**
- * _printf - Produces output according to a format
- * @format: A character string containing zero or more directives
- *
- * Return: The number of characters printed (excluding the null byte)
+ * _printf - fun that print varios types
+ * @format: formats
+ * Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
-    va_list args;
-    int count = 0;
-    char *str_arg;
-    int int_arg;
-    char char_arg;
+	if (format != NULL)
+	{
+		int i = 0, printed_chars = 0;
+		va_list args;
+		int (*this_thing)(va_list);
 
-    va_start(args, format);
-
-    while (*format)
-    {
-        if (*format == '%')
-        {
-            format++;
-            switch (*format)
-            {
-                case 'c':
-                    char_arg = va_arg(args, int);
-                    putchar(char_arg);
-                    count++;
-                    break;
-                case 's':
-                    str_arg = va_arg(args, char *);
-                    while (*str_arg)
-                    {
-                        putchar(*str_arg++);
-                        count++;
-                    }
-                    break;
-                case '%':
-                    putchar('%');
-                    count++;
-                    break;
-                case 'd':
-                case 'i':
-                    int_arg = va_arg(args, int);
-                    printf("%d", int_arg);
-                    count++;
-                    break;
-                default:
-                    putchar('%');
-                    putchar(*format);
-                    count += 2;
-                    break;
-            }
-        }
-        else
-        {
-            putchar(*format);
-            count++;
-        }
-        format++;
-    }
-
-    va_end(args);
-    return count;
+		va_start(args, format);
+		if (format[0] == '%' && format[1] == '\0')
+			return (-1);
+		while (format != NULL && format[i] != '\0')
+		{
+			if (format[i] == '%')
+			{
+				if (format[i + 1] == '%')
+				{
+					printed_chars += _putchar(format[i]);
+					i += 2;
+				}
+				else
+				{
+					this_thing = get_print(format[i + 1]);
+					if (this_thing)
+						printed_chars += this_thing(args);
+					else
+						printed_chars = _putchar(format[i]) + _putchar(format[i + 1]);
+					i += 2;
+				} /*end if else*/
+			} /*end if */
+			else
+			{
+				printed_chars += _putchar(format[i]);
+				i++;
+			} /*end outer if else*/
+		} /*end while*/
+		va_end(args);
+		return (printed_chars);
+	} /*end function*/
+	return (-1);
 }
-

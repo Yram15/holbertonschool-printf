@@ -1,24 +1,28 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <stdio.h>
-#include <string.h>
 #include <stdarg.h>
-#include <stdarg.h>
-#include <unistd.h>
-int _putchar(char c);
-int _printf(const char *format, ...);
-int get_fun(char format, va_list args);
-typedef struct form
+#include <stddef.h>
+
+
+/**
+ * struct print_struct - ...
+ * @indi: ...
+ * @handler: ...
+ */
+typedef struct print_struct
 {
-    char str;
+char *indi;
+int (*handler)(va_list agrs);
+} print;
 
-} fmt;
-int char_print(va_list args);
-int string_print(va_list args);
-int num_print(va_list args);
-int unsigned_num(va_list args);
-int binary(va_list args);
-
-#endif /* MAIN_H */
-
+/* Function prototypes for _printf and additional functions */
+int _printf(const char *format, ...);
+int print_char(va_list args);
+int print_string(va_list args);
+int print_mod(va_list args);
+int print_int(va_list args);
+int _putchar(char c);
+int print_reverse(va_list args);
+int (*get_print(char format))(va_list);
+#endif
