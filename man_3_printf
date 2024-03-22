@@ -1,0 +1,61 @@
+MAN(3)                      Custom printf Implementation                     MAN(3)
+
+NAME
+       _printf - Custom printf Implementation
+
+SYNOPSIS
+       #include "main.h"
+
+       int _printf(const char *format, ...);
+
+DESCRIPTION
+       The _printf() function is a custom implementation of the printf function,
+       used to print formatted output to the standard output stream.
+
+       - _printf(format, ...): This function takes a format string and a variable
+         number of arguments, formats them according to the format string, and
+         writes the resulting string to the standard output. It returns the number
+         of characters written, or -1 if an error occurs.
+
+       The format string may contain ordinary characters (which are copied directly
+       to the output) and conversion specifications, which start with the % character
+       and may be followed by optional flags, field width, precision, and conversion
+       specifier characters.
+
+       The following conversion specifiers are supported:
+
+       - %c: Print a single character.
+       - %s: Print a string of characters.
+       - %d, %i: Print a signed integer.
+       - %%: Print a literal % character.
+
+RETURN VALUE
+       Upon successful completion, _printf() returns the number of characters
+       printed, excluding the null terminator. If an error occurs, -1 is returned.
+
+       Possible error conditions include invalid format strings, memory allocation
+       failures, or other internal errors.
+
+EXAMPLES
+       The following example demonstrates basic usage of the _printf() function:
+
+           #include "main.h"
+           #include <stdio.h>
+
+           int main() {
+               int len = _printf("Hello, %s!\n", "world");
+               printf("Number of characters printed: %d\n", len);
+               return 0;
+           }
+
+       Output:
+           Hello, world!
+           Number of characters printed: 13
+
+SEE ALSO
+       printf(3), fprintf(3), sprintf(3), snprintf(3)
+
+AUTHOR
+       This manual page was written by Alex and Yram, for the custom printf
+       implementation project.
+
